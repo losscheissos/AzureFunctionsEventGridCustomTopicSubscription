@@ -1,0 +1,59 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+  "parameters": {
+    "functionApp_SystemKey": 
+    {
+        "type": "string",
+        "metadata":{
+            "description": "The System Key of the Azure Functions App hosting the targeted Azure Function"
+        }
+    },
+    "functionApp_Name": {
+        "type": "string",
+        "metadata":{
+            "description": "The Name of Azure Functions App hosting the targeted Azure Function"
+        } 
+    },
+    "function_Name": {
+        "type": "string",
+        "metadata":{
+            "description": "The name of the particular Azure Function to be integrated"
+        }
+    },
+    "topic-name": {
+        "type": "string",
+        "metadata":{
+            "description": "The name of the topic to subscribe to"
+        }
+    },
+    "subscription-name" :
+    {
+         "type": "string",
+         "metadata":{
+            "description": "The name of the subscription"
+         }
+    }
+  },
+    "resources": [
+      {
+        "name": "[concat(parameters('topic-name'), '/Microsoft.EventGrid/', parameters('subscription-name'))]",
+        "type": "Microsoft.EventGrid/topics/providers/eventSubscriptions",
+        "location": "[resourceGroup().location]",
+        "apiVersion": "2018-01-01",
+        "properties": {
+          "destination": {
+            "endpointType": "WebHook",
+            "properties": {
+              "endpointUrl": "[concat('https://', parameters('functionApp_Name'), '.azurewebsites.net/runtime/webhooks/eventgrid?functionName=', parameters('function_Name') , '&code=', parameters('functionApp_SystemKey'))]"
+            }
+          },
+          "filter": {
+            "includedEventTypes": [
+              "All"
+            ]
+          }
+        }
+      }
+    ]
+  }
