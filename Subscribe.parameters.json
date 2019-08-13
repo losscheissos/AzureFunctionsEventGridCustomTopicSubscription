@@ -11,7 +11,7 @@
     "event-function_Name": {
       "value": "OVERRIDE"
     },
-    "topic-name": {
+    "topic-name":{
         "value": "OVERRIDE"
     },
     "subscription-name": {

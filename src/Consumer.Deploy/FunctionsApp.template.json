@@ -1,0 +1,71 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "appService_name": {
+      "type": "string"
+    },
+    "appServicePlan_name": {
+      "type": "string"
+    },
+    "appServicePlan_skuName": {
+      "type": "string"
+    },
+    "appServicePlan_skuTier": {
+      "type": "string"
+    },
+    "appServicePlan_skuFamily": {
+      "type": "string"
+    },
+    "appServicePlan_skuSize": {
+      "type": "string"
+    },
+    "appServicePlan_workerSizeId": {
+      "type": "int"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Web/sites",
+      "kind": "app",
+      "name": "[parameters('appService_name')]",
+      "apiVersion": "2015-08-01",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "name": "[parameters('appService_name')]",
+        "serverFarmId": "[resourceId(resourceGroup().name,'Microsoft.Web/serverfarms', parameters('appServicePlan_name'))]",
+        "kind": "app",
+        "httpsOnly": true
+      },
+      "resources": [
+        {
+          "type": "config",
+          "name": "appsettings",
+          "apiVersion": "2015-08-01",
+          "properties": {},
+          "dependsOn": [
+            "[concat('Microsoft.Web/Sites/', parameters('appService_name'))]",
+          ]
+        }
+      ],
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverFarms', parameters('appServicePlan_name'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Web/serverfarms",
+      "sku": {
+        "name": "[parameters('appServicePlan_skuName')]",
+        "tier": "[parameters('appServicePlan_skuTier')]",
+        "family": "[parameters('appServicePlan_skuFamily')]",
+        "size": "[parameters('appServicePlan_skuSize')]"
+      },
+      "name": "[parameters('appServicePlan_name')]",
+      "apiVersion": "2015-08-01",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "name": "[parameters('appServicePlan_name')]"
+      }
+    }
+  ]
+}

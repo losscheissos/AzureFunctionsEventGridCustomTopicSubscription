@@ -30,7 +30,7 @@ param(
  $subscriptionId,
 
  [string]
- $resourceGroupName = "cloud-domain-selector-experimental",
+ $resourceGroupName = "functions-app-rg",
 
  [string]
  $resourceGroupLocation,

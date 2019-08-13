@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "appService_name": {
+      "value": ""
+    },
+    "appServicePlan_name": {
+      "value": ""
+    },
+    "appServicePlan_skuName": {
+      "value": "F1"
+    },
+    "appServicePlan_skuTier": {
+      "value": "Free"
+    },
+    "appServicePlan_skuFamily": {
+      "value": "F1"
+    },
+    "appServicePlan_skuSize": {
+      "value": "F"
+    },
+    "appServicePlan_workerSizeId": {
+      "value": 0
+    }
+  }
+}
