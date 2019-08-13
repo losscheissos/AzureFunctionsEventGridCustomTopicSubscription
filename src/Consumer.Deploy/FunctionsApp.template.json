@@ -27,7 +27,7 @@
   "resources": [
     {
       "type": "Microsoft.Web/sites",
-      "kind": "app",
+      "kind": "functionapp",
       "name": "[parameters('appService_name')]",
       "apiVersion": "2015-08-01",
       "location": "[resourceGroup().location]",
