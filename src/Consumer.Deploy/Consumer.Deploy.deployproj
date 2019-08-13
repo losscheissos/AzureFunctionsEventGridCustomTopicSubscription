@@ -29,6 +29,12 @@
       <Visible>False</Visible>
     </None>
     <Content Include="FunctionsApp.deploy.ps1" />
+    <None Include="OutputFunctionKeys.deploy.ps1" />
+    <None Include="OutputFunctionKeys.parameters.json" />
+    <None Include="OutputFunctionKeys.template.json" />
+    <None Include="Subscribe.deploy.ps1" />
+    <None Include="Subscribe.parameters.json" />
+    <None Include="Subscribe.template.json" />
   </ItemGroup>
   <Target Name="GetReferenceAssemblyPaths" />
 </Project>
